@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
 
+  let
+    textEditor = "nvim.desktop";
+    imgViewer = "feh.desktop";
+    mediaViewer = "mpv.desktop";
+  in
 {
   imports =
     [
@@ -57,9 +62,25 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # jack.enable = true;
-  }; 
+  };
   
   services.flatpak.enable = true;
+
+  xdg.mime.enable = true;
+
+  xdg.mime.defaultApplications = {
+    "text/plain" = [ textEditor ];
+    "image/png" = [ imgViewer ];
+    "image/jpeg" = [ imgViewer ];
+    "image/jpg" = [ imgViewer ];
+    "video/webm" = [ mediaViewer ];
+    "video/mp4" = [ mediaViewer ];
+    "video/mpv" = [ mediaViewer ];
+    "audio/ogg" = [ mediaViewer ];
+    "audio/mp3" = [ mediaViewer ];
+    "audio/wav" = [ mediaViewer ];
+    "audio/flac" = [ mediaViewer ];
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mx = {
@@ -83,17 +104,22 @@
   programs.yazi.enable = true;
 
   programs.thunar.enable = true;
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
 	
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     neovim
      wget
      git
      kitty
      btop
      fastfetch
      brightnessctl
+     ncdu
  ];
 
   fonts.packages = with pkgs; [
