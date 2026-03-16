@@ -19,7 +19,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "ayu";
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Chicago";
@@ -42,6 +41,12 @@
 
   hardware.bluetooth = {
     enable = true;
+    powerOnBoot = false;
+    settings = {
+      General = {
+        Experimental = true;
+      };
+    };
   };
 
   services.blueman.enable = true;
@@ -63,6 +68,17 @@
     pulse.enable = true;
     # jack.enable = true;
   };
+
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
+  services.tailscale = {
+    enable = true;
+    # useRoutingFeatures = client;
+  };
+
+  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
   
   services.flatpak.enable = true;
 
@@ -93,7 +109,20 @@
       catppuccin-sddm
       obsidian
       peazip
+      calcure
+      protonvpn-gui
+      bitwarden-desktop
+      jellyfin-desktop
    ];
+  };
+
+  services.udev.packages = with pkgs; [
+    yubikey-personalization
+  ];
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
 
   # Allow unfree packages
@@ -120,10 +149,12 @@
      fastfetch
      brightnessctl
      ncdu
+     playerctl
  ];
 
   fonts.packages = with pkgs; [
     font-awesome
+    noto-fonts-cjk-sans
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

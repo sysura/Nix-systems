@@ -5,6 +5,8 @@
     wineWow64Packages.stable
     winetricks
     gamescope
+    steam-run
+    steamtinkerlaunch
   ];
 
   programs.steam = {
