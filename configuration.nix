@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
   let
     textEditor = "nvim.desktop";
@@ -8,9 +8,11 @@
 {
   imports =
     [
+      inputs.sops-nix.nixosModules.sops
       ./hardware-configuration.nix
       ./modules/system/gaming/games.nix
       ./modules/system/theme/sddm.nix
+      ./modules/system/security/networking.nix
     ];
 
   # Bootloader.
@@ -34,6 +36,14 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+
+  # Sops config
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = "~/.config/sops/age/keys.txt";
+
+  # sops.secrets.example-key = {};
+  # sops.secrets."myservice/my_subdir/my_secret" = {  };
 
   hardware.graphics = {
     enable = true;
@@ -61,6 +71,7 @@
   
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  security.pam.services.hyprlock = {};
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -72,14 +83,6 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  services.tailscale = {
-    enable = true;
-    # useRoutingFeatures = client;
-  };
-
-  services.mullvad-vpn.enable = true;
-  services.mullvad-vpn.package = pkgs.mullvad-vpn;
-  
   services.flatpak.enable = true;
 
   xdg.mime.enable = true;
@@ -102,17 +105,19 @@
   users.users.mx = {
     isNormalUser = true;
     description = "mx";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "wireshark" ];
     packages = with pkgs; [
       zed-editor
       tmux
       catppuccin-sddm
       obsidian
       peazip
-      calcure
-      protonvpn-gui
       bitwarden-desktop
       jellyfin-desktop
+      protonmail-desktop
+      libreoffice
+      anki
+      syncthing
    ];
   };
 
@@ -150,9 +155,11 @@
      brightnessctl
      ncdu
      playerctl
+     sops
  ];
 
   fonts.packages = with pkgs; [
+    nerd-fonts.caskaydia-cove
     font-awesome
     noto-fonts-cjk-sans
   ];
@@ -169,12 +176,6 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   system.stateVersion = "25.11"; # Did you read the comment?
 
