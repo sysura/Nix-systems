@@ -3,6 +3,16 @@
 {
   imports = [
     ./modules/user/browsers.nix
+    ./modules/user/hypr/hyprland.nix
+    ./modules/user/hypr/hyprlock.nix
+    ./modules/user/hypr/hyprpaper.nix
+    ./modules/user/env/mako.nix
+    ./modules/user/env/waybar.nix
+    ./modules/user/env/wofi.nix
+    ./modules/user/env/wlogout.nix
+    ./modules/user/terminal/kitty.nix
+    ./modules/user/terminal/fastfetch.nix
+    ./modules/user/media/freetube.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -19,19 +29,23 @@
   # release notes.
   home.stateVersion = "25.11"; # Please read the comment before changing.
 
+  services.gnome-keyring.enable = true;
+  services.protonmail-bridge.enable = true;
+
   home.packages = with pkgs; [
      waybar
      wofi
      networkmanagerapplet
-     mako
      hyprsunset
      hyprpaper
-     hyprlock
      pavucontrol
      feh
      mpv
      starship
      trayscale
+     gcr
+     thunderbird
+     ripgrep
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -93,11 +107,6 @@
       ff = "fastfetch";
     };
     bashrcExtra = ''eval "$(starship init bash)"'';
-  };
-
-  programs.anki = {
-    enable = true;
-    theme = "dark";
   };
 
   # Let Home Manager install and manage itself.

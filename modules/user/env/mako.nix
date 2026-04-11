@@ -1,4 +1,4 @@
-{config, pkgs, lib, ... }
+{config, pkgs, lib, ... }:
 
 {
   services.mako = {
@@ -18,12 +18,10 @@
       max-icon-size = 20;
       default-timeout = 4000;
 
-      urgency = {
-        critical = {
+      "urgency=critical" = {
           default-timeout = 0;
           border-color = "#fab387";
-        }
-      }
-    }
-  }
+      };
+    };
+  };
 }

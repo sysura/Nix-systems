@@ -5,8 +5,11 @@
     wineWow64Packages.stable
     winetricks
     gamescope
-    steam-run
-    steamtinkerlaunch
+    #steam-run
+    #steamtinkerlaunch
+    adwsteamgtk
+    prismlauncher
+    openmw
   ];
 
   programs.steam = {
@@ -14,5 +17,4 @@
     protontricks.enable = true;
     gamescopeSession.enable = true;
   };
-
 }

@@ -6,9 +6,10 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let 
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -17,6 +18,7 @@
     nixosConfigurations = {
       ayu = lib.nixosSystem {
         inherit system;
+	specialArgs = { inherit inputs; };
         modules = [ ./configuration.nix ];
       };
     };
@@ -24,6 +26,7 @@
     homeConfigurations = {
       mx = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+	#specialArgs = { inherit inputs; };
 	modules = [ ./home.nix ];
       };
     };

@@ -59,6 +59,11 @@
     };
   };
 
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
+
   services.blueman.enable = true;
  
   services.displayManager.sddm = {
@@ -83,7 +88,7 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  services.flatpak.enable = true;
+  #services.flatpak.enable = true;
 
   xdg.mime.enable = true;
 
@@ -118,6 +123,8 @@
       libreoffice
       anki
       syncthing
+      talosctl
+      distrobox
    ];
   };
 
@@ -151,7 +158,6 @@
      git
      kitty
      btop
-     fastfetch
      brightnessctl
      ncdu
      playerctl

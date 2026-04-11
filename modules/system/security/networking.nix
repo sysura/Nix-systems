@@ -4,12 +4,12 @@
   environment.systemPackages = with pkgs; [wireshark];
 
   # VPNS
-  #services.mullvad-vpn.enable = true;
-  #services.mullvad-vpn.package = pkgs.mullvad-vpn;
+  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
 
   # Tailscale Mesh
-  #services.tailscale = {
-  #  enable = true;
+  services.tailscale = {
+    enable = true;
     # useRoutingFeatures = client;
   };
 
@@ -19,13 +19,10 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-
-  #environment.systemPackages = with pkgs; [];
-
-  #programs.wireshark = {
-  #  enable = true;
+  programs.wireshark = {
+    enable = true;
    #usbmon = true;
    #dumpcap = true;
-  #};
+  };
 
 }

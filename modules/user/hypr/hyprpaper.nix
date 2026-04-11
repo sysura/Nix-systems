@@ -1,10 +1,10 @@
 {config, pkgs, lib, ... }:
   let
-   screen = eDP-1;
-   img = gothic.jpg;
+   screen = "eDP-1";
+   img = "gothic.jpg";
   in
 {
-  programs.hyprpaper = {
+  services.hyprpaper = {
     enable = true;
     settings = {
       wallpaper = {
