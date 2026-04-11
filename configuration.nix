@@ -40,10 +40,22 @@
   # Sops config
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "~/.config/sops/age/keys.txt";
+  sops.age.keyFile = "/home/mx/.config/sops/age/keys.txt";
 
-  # sops.secrets.example-key = {};
-  # sops.secrets."myservice/my_subdir/my_secret" = {  };
+  sops.secrets.example-key = { };
+  sops.secrets."myservice/my_subdir/my_secret" = { };
+
+
+  # Power settings 
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchDocked = "ignore";
+  };
+  
+  services.power-profiles-daemon.enable = true;
+  services.system76-scheduler.enable = true;
+
 
   hardware.graphics = {
     enable = true;
@@ -125,6 +137,7 @@
       syncthing
       talosctl
       distrobox
+      ollama
    ];
   };
 

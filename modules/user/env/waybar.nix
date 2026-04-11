@@ -51,8 +51,8 @@ in
        	modules-center = ["hyprland/window"];
        	modules-right = [
        	  "tray"
+          "pulseaudio"
       	  "power-profiles-daemon"
-      	  "pulseaudio"
           "battery"
       	  "network"
       	  "clock"
@@ -72,7 +72,7 @@ in
          	};
          	sort-by-number = true;
          	persistent-workspaces = {
-                "1" = "[]";
+              "1" = "[]";
            	  "2" = "[]";
            	  "3" = "[]";
          	  };
@@ -257,7 +257,7 @@ in
       #mpd { ${commonStyle} }
 
       #power-profiles-daemon.balanced {
-        margin-right: 7px;
+        margin-right: 10px;
         color: ${green};
       }
 
@@ -267,10 +267,9 @@ in
       }
 
       #pulseaudio {
-        padding: 0 10px;
         color: ${sky};
         border-radius: 15px;
-        margin: 5px 0;
+        margin-right: 10px;
       }
 
       #window { margin: 0 4px; }
@@ -285,7 +284,7 @@ in
       }
 
       #network.ethernet {
-        margin: 0 8px 0 0;
+        margin-right: 10px;
       }
 
       #battery.warning:not(.charging) {
