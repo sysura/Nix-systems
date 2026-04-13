@@ -6,12 +6,14 @@
     ./modules/user/hypr/hyprland.nix
     ./modules/user/hypr/hyprlock.nix
     ./modules/user/hypr/hyprpaper.nix
+    ./modules/user/hypr/hyprshot.nix
     ./modules/user/env/mako.nix
     ./modules/user/env/waybar.nix
     ./modules/user/env/wofi.nix
     ./modules/user/env/wlogout.nix
     ./modules/user/terminal/kitty.nix
     ./modules/user/terminal/fastfetch.nix
+    ./modules/user/terminal/yazi.nix
     ./modules/user/media/freetube.nix
   ];
 

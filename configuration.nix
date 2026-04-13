@@ -13,6 +13,7 @@
       ./modules/system/gaming/games.nix
       ./modules/system/theme/sddm.nix
       ./modules/system/security/networking.nix
+      ./modules/system/japanese/mozc.nix
     ];
 
   # Bootloader.
@@ -36,6 +37,10 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+
+  # Stylix
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
   # Sops config
   sops.defaultSopsFile = ./secrets/secrets.yaml;
@@ -138,12 +143,17 @@
       talosctl
       distrobox
       ollama
+      thunar
    ];
   };
 
   services.udev.packages = with pkgs; [
     yubikey-personalization
   ];
+
+  services.gnome.gnome-keyring = {
+    enable = true;
+  };
 
   programs.gnupg.agent = {
     enable = true;
@@ -155,10 +165,6 @@
 
   programs.hyprland.enable = true;
 
-  programs.yazi.enable = true;
-
-  programs.thunar.enable = true;
-
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -169,7 +175,6 @@
   environment.systemPackages = with pkgs; [
      wget
      git
-     kitty
      btop
      brightnessctl
      ncdu
@@ -180,7 +185,6 @@
   fonts.packages = with pkgs; [
     nerd-fonts.caskaydia-cove
     font-awesome
-    noto-fonts-cjk-sans
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

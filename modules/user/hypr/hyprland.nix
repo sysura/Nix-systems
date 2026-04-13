@@ -17,7 +17,7 @@
       exec-once = [
         "nm-applet &"
         "hyprpaper &"
-        "waybar & hyprsunset --temperature 5500 & mako"
+        "waybar & hyprsunset --temperature 5500 & mako & fcitx5"
       ];
 
       env = [
@@ -219,6 +219,13 @@
 
         # Hyprlock
         "$mainMod SHIFT, L, exec, hyprlock"
+
+        # Hyprshot
+        "$mainMod, PRINT, exec, hyprshot -m window -o $HYPRSHOT_DIR"
+          # Screenshot a monitor
+        ", PRINT, exec, hyprshot -m output -o $HYPRSHOT_DIR"
+          # Screenshot a region
+        "$shiftMod, PRINT, exec, hyprshot -m region -o $HYPRSHOT_DIR"
       ];
 
       bindm = [
@@ -233,8 +240,9 @@
         ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-        ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+        ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"
+        ",XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+        ",XF86AudioMedia, exec, mpv"
       ];
 
       bindl = [
