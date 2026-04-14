@@ -14,7 +14,11 @@
     ./modules/user/terminal/kitty.nix
     ./modules/user/terminal/fastfetch.nix
     ./modules/user/terminal/yazi.nix
+    ./modules/user/terminal/tmux.nix
     ./modules/user/media/freetube.nix
+    ./modules/user/dev/nvim.nix
+    ./modules/user/dev/zed.nix
+    ./modules/user/dev/obsidian.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -99,6 +103,8 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
+
+  nixpkgs.config.allowUnfree = true;
 
   programs.bash = {
     enable = true;

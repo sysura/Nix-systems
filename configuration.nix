@@ -129,14 +129,10 @@
     description = "mx";
     extraGroups = [ "networkmanager" "wheel" "wireshark" ];
     packages = with pkgs; [
-      zed-editor
-      tmux
       catppuccin-sddm
-      obsidian
       peazip
       bitwarden-desktop
       jellyfin-desktop
-      protonmail-desktop
       libreoffice
       anki
       syncthing
@@ -164,11 +160,6 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.hyprland.enable = true;
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
 	
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -180,6 +171,7 @@
      ncdu
      playerctl
      sops
+     vim
  ];
 
   fonts.packages = with pkgs; [
