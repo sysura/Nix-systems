@@ -14,7 +14,7 @@
       in
         map (f: dir + "/${f}") nixFiles;
 
-    dirs = ["gaming" "security" "theme"];
+    dirs = ["gaming" "japanese" "security" "theme"];
     autoImports = lib.concatMap (d: importDir (sys + "/${d}")) dirs;
   in
 {
@@ -25,8 +25,16 @@
     ] ++ autoImports;
 
   systemSettings = {
+    # gaming/
     games.enable = true;
+
+    # japanese/
+    i18n.enable = true;
+
+    # security/
     networking.enable = true;
+
+    # theme/
     sddm.enable = true;
   };
 
