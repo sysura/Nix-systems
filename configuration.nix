@@ -13,14 +13,13 @@
       ./modules/system/gaming/games.nix
       ./modules/system/theme/sddm.nix
       ./modules/system/security/networking.nix
-      ./modules/system/japanese/mozc.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
+ 
   networking.hostName = "ayu";
   networking.networkmanager.enable = true;
 
@@ -60,6 +59,8 @@
   
   services.power-profiles-daemon.enable = true;
   services.system76-scheduler.enable = true;
+
+  services.displayManager.defaultSession = "hyprland";
 
 
   hardware.graphics = {
@@ -140,6 +141,8 @@
       distrobox
       ollama
       thunar
+      signal-desktop
+      protonmail-bridge
    ];
   };
 
@@ -159,8 +162,12 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  programs.hyprland.enable = true;
-	
+  #programs.niri.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = false;
+  }; 
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -192,7 +199,7 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "25.11";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 }

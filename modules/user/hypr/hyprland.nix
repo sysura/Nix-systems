@@ -4,6 +4,10 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    package = pkgs.hyprland;
+    systemd = {
+      enable = false;
+    };
     settings = {
       monitor = ",preferred,auto,auto";
       xwayland = {
@@ -17,7 +21,7 @@
       exec-once = [
         "nm-applet &"
         "hyprpaper &"
-        "waybar & hyprsunset --temperature 5500 & mako & fcitx5"
+        "waybar & hyprsunset --temperature 5500 & mako"
       ];
 
       env = [

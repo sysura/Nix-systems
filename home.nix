@@ -36,7 +36,6 @@
   home.stateVersion = "25.11"; # Please read the comment before changing.
 
   services.gnome-keyring.enable = true;
-  services.protonmail-bridge.enable = true;
 
   home.packages = with pkgs; [
      waybar
