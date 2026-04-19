@@ -1,125 +1,57 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let
+  usr = ./modules/user;
+  importDir = dir:
+    let
+      files = builtins.readDir dir;
+      isNix = name: type: type == "regular" && lib.hasSuffix ".nix" name;
+      nixFiles = lib.attrNames (lib.filterAttrs isNix files);
+    in
+      map (f: dir + "/${f}") nixFiles;
 
+  dirs = ["hypr" "env" "media" "terminal" "dev" "shell"];
+  autoImports = lib.concatMap (d: importDir (usr + "/${d}")) dirs;
+in
 {
   imports = [
     ./modules/user/browsers.nix
-    ./modules/user/hypr/hyprland.nix
-    ./modules/user/hypr/hyprlock.nix
-    ./modules/user/hypr/hyprpaper.nix
-    ./modules/user/hypr/hyprshot.nix
-    ./modules/user/env/mako.nix
-    ./modules/user/env/waybar.nix
-    ./modules/user/env/wofi.nix
-    ./modules/user/env/wlogout.nix
-    ./modules/user/terminal/kitty.nix
-    ./modules/user/terminal/fastfetch.nix
-    ./modules/user/terminal/yazi.nix
-    ./modules/user/terminal/tmux.nix
-    ./modules/user/media/freetube.nix
-    ./modules/user/dev/nvim.nix
-    ./modules/user/dev/zed.nix
-    ./modules/user/dev/obsidian.nix
-  ];
+  ] ++ autoImports;
 
-  userSettings.neovim.enable = true;
-  userSettings.obsidian.enable = true;
-  userSettings.zed.enable = true;
-
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "mx";
-  home.homeDirectory = "/home/mx";
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "25.11"; # Please read the comment before changing.
-
-  services.gnome-keyring.enable = true;
-
-  home.packages = with pkgs; [
-     waybar
-     wofi
-     networkmanagerapplet
-     hyprsunset
-     hyprpaper
-     pavucontrol
-     feh
-     mpv
-     starship
-     trayscale
-     gcr
-     thunderbird
-     ripgrep
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-  ];
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    #".config/hypr/hyprland.conf".source = ./hyprland.conf;
-
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+  userSettings = {
+    neovim.enable = true;
+    obsidian.enable = true;
+    zed.enable = true;
+    bash.enable = true;
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/mx/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    # EDITOR = "emacs";
+  home = {
+    username = "mx";
+    homeDirectory = "/home/${config.home.username}";
+    stateVersion = "25.11";
+    packages = with pkgs; [
+       waybar
+       wofi
+       networkmanagerapplet
+       hyprsunset
+       hyprpaper
+       pavucontrol
+       feh
+       mpv
+       starship
+       trayscale
+       gcr
+       thunderbird
+       ripgrep
+    ];
+    sessionVariables = {};
   };
+
+  ### User Services ###
+  services = {
+    gnome-keyring.enable = true;
+  };
+
 
   nixpkgs.config.allowUnfree = true;
-
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      ll = "ls -l";
-      ".." = "cd ..";
-      nv = "nvim";
-      ff = "fastfetch";
-    };
-    bashrcExtra = ''eval "$(starship init bash)"'';
-  };
-
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
