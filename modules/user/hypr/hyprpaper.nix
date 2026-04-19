@@ -1,19 +1,30 @@
-{config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
   let
+   cfg = config.userSettings.hyprpaper;
+
    screen = "eDP-1";
    img = "gothic.jpg";
   in
 {
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      wallpaper = {
-        monitor = "${screen}";
-        path = "~/Wallpapers/${img}";
-        fit_mode = "cover";
-      };
+  options = {
+    userSettings.hyprpaper = {
+      enable = lib.mkEnableOption "Enable hyprpaper";
+    };
+  };
 
-      splash = false;
+  config = lib.mkIf cfg.enable {
+    services.hyprpaper = {
+      enable = true;
+      package = pkgs.hyprpaper;
+      settings = {
+        wallpaper = {
+          monitor = "${screen}";
+          path = "~/Wallpapers/${img}";
+          fit_mode = "cover";
+        };
+
+        splash = false;
+      };
     };
   };
 }

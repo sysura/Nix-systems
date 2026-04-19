@@ -18,10 +18,34 @@ in
   ] ++ autoImports;
 
   userSettings = {
+    # dev/
     neovim.enable = true;
     obsidian.enable = true;
     zed.enable = true;
+
+    # env/
+    mako.enable = true;
+    waybar.enable = true;
+    wlogout.enable = true;
+    wofi.enable = true;
+
+    # hypr/
+    hyprland.enable = true;
+    hyprlock.enable = true;
+    hyprpaper.enable = true;
+    hyprshot.enable = true;
+
+    # media/
+    freetube.enable = true;
+
+    # shell/
     bash.enable = true;
+
+    # terminal/
+    fastfetch.enable = true;
+    kitty.enable = true;
+    tmux.enable = true;
+    yazi.enable = true;
   };
 
   home = {
@@ -29,11 +53,8 @@ in
     homeDirectory = "/home/${config.home.username}";
     stateVersion = "25.11";
     packages = with pkgs; [
-       waybar
-       wofi
        networkmanagerapplet
        hyprsunset
-       hyprpaper
        pavucontrol
        feh
        mpv

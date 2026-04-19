@@ -1,76 +1,87 @@
 {config, pkgs, lib, ... }:
 
-
+let
+  cfg = config.userSettings.freetube;
+in
 {
-  programs.freetube = {
-    enable = true;
-    settings = {
-      baseTheme = "catppuccinMocha";
-      mainColor = "catppucinMochaFlamingo";
-      secColor = "catppuccinMochaSapphire";
-      barColor = false;
+  options = {
+    userSettings.freetube = {
+      enable = lib.mkEnableOption "Enable freetube player";
+    };
+  };
 
-      checkForUpdates = false;
-      enableScreenshot = true;
-      enableSearchSuggestions = false;
-      expandSideBar = false;
+  config = lib.mkIf cfg.enable {
+    programs.freetube = {
+      enable = true;
+      package = pkgs.freetube;
+      settings = {
+        baseTheme = "catppuccinMocha";
+        mainColor = "catppucinMochaFlamingo";
+        secColor = "catppuccinMochaSapphire";
+        barColor = false;
 
-      hideChannelCommunity = true;
-      hideChannelCourses = true;
-      hideChannelPodcasts = true;
-      hideChannelReleases = true;
-      hideChannelShorts = true;
-      hideChannelSubscriptions = true;
-      hideCommentLikes = true;
-      hideCommentPhotos = true;
-      hideFeaturedChannels = true;
-      hideHeaderLogo = true;
-      hideLabelsSideBar = true;
-      hideLiveChat = true;
-      hideLiveStreams = true;
-      hideRecommendedVideos = true;
-      hideSubscriptionsCommunity = true;
-      hideSubscriptionsShorts = true;
-      hideTrendingVideos = true;
-      hideUpcomingPremieres = true;
-      hideVideoLikesAndDislikes = true;
-      hideVideoViews = true;
+        checkForUpdates = false;
+        enableScreenshot = true;
+        enableSearchSuggestions = false;
+        expandSideBar = false;
 
-      playNextVideo = false;
-      rememberSearchHistory = false;
-      saveVideoHistoryWithLastViewedPlaylist = false;
-      screenshotAskPath = false;
-      screenshotFolderPath = "~/Pictures/Screenshots";
+        hideChannelCommunity = true;
+        hideChannelCourses = true;
+        hideChannelPodcasts = true;
+        hideChannelReleases = true;
+        hideChannelShorts = true;
+        hideChannelSubscriptions = true;
+        hideCommentLikes = true;
+        hideCommentPhotos = true;
+        hideFeaturedChannels = true;
+        hideHeaderLogo = true;
+        hideLabelsSideBar = true;
+        hideLiveChat = true;
+        hideLiveStreams = true;
+        hideRecommendedVideos = true;
+        hideSubscriptionsCommunity = true;
+        hideSubscriptionsShorts = true;
+        hideTrendingVideos = true;
+        hideUpcomingPremieres = true;
+        hideVideoLikesAndDislikes = true;
+        hideVideoViews = true;
 
-      showDistractionFreeTitles = true;
-      sponsorBlockFiller = {
-        color = "CatppuccinMochaLavender";
-        skip = "showInSeekBar";
+        playNextVideo = false;
+        rememberSearchHistory = false;
+        saveVideoHistoryWithLastViewedPlaylist = false;
+        screenshotAskPath = false;
+        screenshotFolderPath = "~/Pictures/Screenshots";
+
+        showDistractionFreeTitles = true;
+        sponsorBlockFiller = {
+          color = "CatppuccinMochaLavender";
+          skip = "showInSeekBar";
+        };
+        sponsorBlockInteraction = {
+          color = "CatppuccinMochaRed";
+          skip = "autoSkip";
+        };
+        sponsorBlockMusicOffTopic = {
+          color = "CatppuccinMochaTeal";
+          skip = "showInSeekBar";
+        };
+        sponsorBlockRecap = {
+          color = "CatppuccinFrappeBlue";
+          skip = "showInSeekBar";
+        };
+        sponsorBlockSelfPromo = {
+          color = "CatppuccinMochaYellow";
+          skip = "autoSkip";
+        };
+        sponsorBlockSponsor = {
+          color = "CatppuccinMochaGreen";
+          skip = "autoSkip";
+        };
+        useDeArrowThumbnails = true;
+        useDeArrowTitles = true;
+        useRssFeeds = true;
+        useSponsorBlock = true;
       };
-      sponsorBlockInteraction = {
-        color = "CatppuccinMochaRed";
-        skip = "autoSkip";
-      };
-      sponsorBlockMusicOffTopic = {
-        color = "CatppuccinMochaTeal";
-        skip = "showInSeekBar";
-      };
-      sponsorBlockRecap = {
-        color = "CatppuccinFrappeBlue";
-        skip = "showInSeekBar";
-      };
-      sponsorBlockSelfPromo = {
-        color = "CatppuccinMochaYellow";
-        skip = "autoSkip";
-      };
-      sponsorBlockSponsor = {
-        color = "CatppuccinMochaGreen";
-        skip = "autoSkip";
-      };
-      useDeArrowThumbnails = true;
-      useDeArrowTitles = true;
-      useRssFeeds = true;
-      useSponsorBlock = true;
     };
   };
 }

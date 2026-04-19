@@ -1,18 +1,13 @@
 { config, pkgs, lib, ... }:
 
 let
+  cfg = config.userSettings.waybar;
+
   text = "#cdd6f4";
   base = "#1e1e2e";
   mantle = "#181825";
   crust = "#11111b";
-  subtext0 = "#a6adc8";
-  subtext1 = "#bac2de";
-  surface0 = "#313244";
-  surface1 = "#45475a";
   surface2 = "#585b70";
-  overlay0 = "#6c7086";
-  overlay1 = "#7f849c";
-  overlay2 = "#9399b2";
   blue = "#89b4fa";
   white = "#ffffff";
   lavender = "#b4befe";
@@ -39,39 +34,47 @@ let
 
 in
 {
-  programs.waybar = {
-    enable = true;
-    settings = {
-      mainbar = {
-        layer = "top";
-       	height = 37;
-        spacing = 5;
-       	#Choose the order of the modules
-     	  modules-left = ["hyprland/workspaces"];
-       	modules-center = ["hyprland/window"];
-       	modules-right = [
-       	  "tray"
-          "pulseaudio"
-      	  "power-profiles-daemon"
-          "battery"
-      	  "network"
-      	  "clock"
-      	  "custom/notification"
-      	  "custom/power"
-       	];
-       	"hyprland/window" = {
-       	  separate-outputs = false;
-       	};
-       	"hyprland/workspaces" = {
-       	  format = "{icon}";
-       	  on-click = "activate";
-       	  format-icons = {
-         	    urgent = "";
+  options = {
+    userSettings.waybar = {
+      enable = lib.mkEnableOption "Enable waybar";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    programs.waybar = {
+      enable = true;
+      package = pkgs.waybar;
+      settings = {
+        mainbar = {
+          layer = "top";
+         	height = 37;
+          spacing = 5;
+         	#Choose the order of the modules
+       	  modules-left = ["hyprland/workspaces"];
+         	modules-center = ["hyprland/window"];
+         	modules-right = [
+         	  "tray"
+            "pulseaudio"
+         	  "power-profiles-daemon"
+            "battery"
+         	  "network"
+         	  "clock"
+         	  "custom/notification"
+         	  "custom/power"
+         	];
+         	"hyprland/window" = {
+         	  separate-outputs = false;
+         	};
+         	"hyprland/workspaces" = {
+         	  format = "{icon}";
+         	  on-click = "activate";
+         	  format-icons = {
+           	  urgent = "";
          	    active = "";
          	    default = "";
-         	};
-         	sort-by-number = true;
-         	persistent-workspaces = {
+           	};
+           	sort-by-number = true;
+           	persistent-workspaces = {
               "1" = "[]";
            	  "2" = "[]";
            	  "3" = "[]";
@@ -161,180 +164,186 @@ in
         };
       };
 
-    style = ''
-      * {
-        font-family: "CaskaydiaCove Nerd Font", monospace;
-        font-weight: bolder;
-        font-size: 13px;
-      }
+      style = ''
+        * {
+          font-family: "CaskaydiaCove Nerd Font", monospace;
+          font-weight: bolder;
+          font-size: 13px;
+        }
 
-      window#waybar {
-        background-color: transparent;
-        color: ${lavender};
-        transition-property: all;
-        transition-duration: 0.5s;
-      }
+        window#waybar {
+          background-color: transparent;
+          color: ${lavender};
+          transition-property: all;
+          transition-duration: 0.5s;
+        }
 
-      window#waybar.hidden {
-        opacity: 0.2;
-      }
+        window#waybar.hidden {
+          opacity: 0.2;
+        }
 
-      button {
-        box-shadow: inset 0 -3px transparent;
-        border: none;
-        border-radius: 0;
-      }
+        button {
+          box-shadow: inset 0 -3px transparent;
+          border: none;
+          border-radius: 0;
+        }
 
-      #workspaces button:hover {
-        color: ${lavender};
-        box-shadow: inherit;
-        text-shadow: inherit;
-        background: ${crust};
-        border: ${crust};
-      }
+        #workspaces button:hover {
+          color: ${lavender};
+          box-shadow: inherit;
+          text-shadow: inherit;
+          background: ${crust};
+          border: ${crust};
+        }
 
-      #workspaces button.empty {
-        color: #44475a;
-      }
+        #workspaces button.empty {
+          color: #44475a;
+        }
 
-      #workspaces button {
-        padding: 0 5px;
-        color: ${surface2};
-        margin: 4px 0 4px 0;
-        transition: color 200ms ease-in-out;
-      }
+        #workspaces button {
+          padding: 0 5px;
+          color: ${surface2};
+          margin: 4px 0 4px 0;
+          transition: color 200ms ease-in-out;
+        }
 
-      #workspaces button.selected {
-        color: ${flamingo};
-      }
+        #workspaces button.selected {
+          color: ${flamingo};
+        }
 
-      #workspaces button.active {
-        color: ${white};
-      }
+        #workspaces button.active {
+          color: ${white};
+        }
 
-      #workspaces button.urgent {
-        color: ${red};
-      }
+        #workspaces button.urgent {
+          color: ${red};
+        }
 
-      #clock {
-        ${commonStyle}
-        color: ${white};
-      }
-      #battery {
-        ${commonStyle}
-        color: ${green};
-      }
-      #cpu { ${commonStyle} }
-      #memory { ${commonStyle} }
-      #disk { ${commonStyle} }
-      #temperature { ${commonStyle} }
-      #backlight { ${commonStyle} }
-      #network.wifi { ${commonStyle} }
-      #network.disconnected {
-        ${commonStyle}
-        color: ${red};
-      }
-      #pulseaudio.muted {
-        ${commonStyle}
-        color: ${red};
-      }
-      #wireplumber { ${commonStyle} }
-      #custom-pacman {
-        ${commonStyle}
-        color: ${peach};
-      }
-      #custom-power {
-        ${commonStyle}
-        color: ${peach};
-      }
-      #tray { ${commonStyle} }
-      #mode { ${commonStyle} }
-      #idle_inhibitor { ${commonStyle} }
-      #scratchpad {
-        ${commonStyle}
-        background: rgba(0, 0, 0, 0.2);
-      }
-      #mpd { ${commonStyle} }
+        #clock {
+          ${commonStyle}
+          color: ${white};
+        }
 
-      #power-profiles-daemon.balanced {
-        margin-right: 10px;
-        color: ${green};
-      }
+        #battery {
+          ${commonStyle}
+          color: ${green};
+        }
+        #cpu { ${commonStyle} }
+        #memory { ${commonStyle} }
+        #disk { ${commonStyle} }
+        #temperature { ${commonStyle} }
+        #backlight { ${commonStyle} }
+        #network.wifi { ${commonStyle} }
+        #network.disconnected {
+          ${commonStyle}
+          color: ${red};
+        }
 
-      #power-profiles-daemon.power-saver {
-        margin-right: 7px;
-        color: ${green};
-      }
+        #pulseaudio.muted {
+          ${commonStyle}
+          color: ${red};
+        }
 
-      #pulseaudio {
-        color: ${sky};
-        border-radius: 15px;
-        margin-right: 10px;
-      }
+        #wireplumber { ${commonStyle} }
+        #custom-pacman {
+          ${commonStyle}
+          color: ${peach};
+        }
 
-      #window { margin: 0 4px; }
-      #workspaces { margin: 0 4px; }
+        #custom-power {
+          ${commonStyle}
+          color: ${peach};
+        }
+        #tray { ${commonStyle} }
+        #mode { ${commonStyle} }
+        #idle_inhibitor { ${commonStyle} }
 
-      .modules-left>widget:first-child>#workspaces {
-        margin-left: 2px;
-      }
+        #scratchpad {
+          ${commonStyle}
+          background: rgba(0, 0, 0, 0.2);
+        }
+        #mpd { ${commonStyle} }
 
-      #network {
-        color: ${lavender};
-      }
+        #power-profiles-daemon.balanced {
+          margin-right: 10px;
+          color: ${green};
+        }
 
-      #network.ethernet {
-        margin-right: 10px;
-      }
+        #power-profiles-daemon.power-saver {
+          margin-right: 7px;
+          color: ${green};
+        }
 
-      #battery.warning:not(.charging) {
-        color: ${red};
-      }
+        #pulseaudio {
+          color: ${sky};
+          border-radius: 15px;
+          margin-right: 10px;
+        }
 
-      #bluetooth {
-        margin-right: 10px;
-        font-size: 17px;
-        color: white;
-      }
+        #window { margin: 0 4px; }
+        #workspaces { margin: 0 4px; }
 
-      #keyboard-state>label {
-        padding: 0 5px;
-      }
+        .modules-left>widget:first-child>#workspaces {
+          margin-left: 2px;
+        }
 
-      #keyboard-state>label.locked {
-        background: rgba(0, 0, 0, 0.2);
-      }
+        #network {
+          color: ${lavender};
+        }
 
-      #scratchpad.empty {
-        background-color: transparent;
-      }
+        #network.ethernet {
+          margin-right: 10px;
+        }
 
-      .modules-left {
-        background-color: ${crust};
-        border-radius: 10px;
-        padding-right: 10px;
-        margin: 5px 0 0 10px;
-      }
+        #battery.warning:not(.charging) {
+          color: ${red};
+        }
 
-      .modules-center {
-        background-color: ${crust};
-        color: ${white};
-        border-radius: 10px;
-        padding: 0 20px;
-        margin-top: 5px;
-      }
+        #bluetooth {
+          margin-right: 10px;
+          font-size: 17px;
+          color: white;
+        }
 
-      .modules-right {
-        background-color: ${crust};
-        border-radius: 10px;
-        padding: 0 10px;
-        margin: 5px 10px 0 0;
-      }
+        #keyboard-state>label {
+          padding: 0 5px;
+        }
 
-      #custom-notification {
-        color: white;
-        padding-right: 10px;
-      }
-    '';
+        #keyboard-state>label.locked {
+          background: rgba(0, 0, 0, 0.2);
+        }
+
+        #scratchpad.empty {
+          background-color: transparent;
+        }
+
+        .modules-left {
+          background-color: ${crust};
+          border-radius: 10px;
+          padding-right: 10px;
+          margin: 5px 0 0 10px;
+        }
+
+        .modules-center {
+          background-color: ${crust};
+          color: ${white};
+          border-radius: 10px;
+          padding: 0 20px;
+          margin-top: 5px;
+        }
+
+        .modules-right {
+          background-color: ${crust};
+          border-radius: 10px;
+          padding: 0 10px;
+          margin: 5px 10px 0 0;
+        }
+
+        #custom-notification {
+          color: white;
+          padding-right: 10px;
+        }
+      '';
+    };
   };
 }

@@ -1,16 +1,26 @@
-{config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
+  cfg = config.userSettings.fastfetch;
+
   ascii-img = "hikari-ascii.png";
 in
 {
-  programs.fastfetch = {
-    enable = true;
-    settings = {
-      logo = {
-        source = "~/Pictures/Ascii/${ascii-img}";
-        #width = 0;
-        #height = 40;
-        padding = {
+  options = {
+    userSettings.fastfetch = {
+      enable = lib.mkEnableOption "Enable fastfetch";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    programs.fastfetch = {
+      enable = true;
+      package = pkgs.fastfetch;
+      settings = {
+        logo = {
+          source = "~/Pictures/Ascii/${ascii-img}";
+          #width = 0;
+          #height = 40;
+          padding = {
           right = 1;
         };
       };
@@ -98,5 +108,6 @@ in
         }
       ];
     };
+  };
   };
 }
