@@ -1,25 +1,40 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
   let
     textEditor = "nvim.desktop";
     imgViewer = "feh.desktop";
     mediaViewer = "mpv.desktop";
+
+    sys = ./modules/system;
+    importDir = dir:
+      let
+        files = builtins.readDir dir;
+        isNix = name: type: type == "regular" && lib.hasSuffix ".nix" name;
+        nixFiles = lib.attrNames (lib.filterAttrs isNix files);
+      in
+        map (f: dir + "/${f}") nixFiles;
+
+    dirs = ["gaming" "security" "theme"];
+    autoImports = lib.concatMap (d: importDir (sys + "/${d}")) dirs;
   in
 {
   imports =
     [
       inputs.sops-nix.nixosModules.sops
       ./hardware-configuration.nix
-      ./modules/system/gaming/games.nix
-      ./modules/system/theme/sddm.nix
-      ./modules/system/security/networking.nix
-    ];
+    ] ++ autoImports;
+
+  systemSettings = {
+    games.enable = true;
+    networking.enable = true;
+    sddm.enable = true;
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
- 
+
   networking.hostName = "ayu";
   networking.networkmanager.enable = true;
 
@@ -50,13 +65,13 @@
   sops.secrets."myservice/my_subdir/my_secret" = { };
 
 
-  # Power settings 
+  # Power settings
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "lock";
     HandleLidSwitchDocked = "ignore";
   };
-  
+
   services.power-profiles-daemon.enable = true;
   services.system76-scheduler.enable = true;
 
@@ -83,15 +98,15 @@
   };
 
   services.blueman.enable = true;
- 
+
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
     theme = "catppuccin-mocha-mauve";
-  };  
+  };
 
   services.printing.enable = true;
-  
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   security.pam.services.hyprlock = {};
@@ -166,7 +181,7 @@
   programs.hyprland = {
     enable = true;
     withUWSM = false;
-  }; 
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

@@ -1,28 +1,35 @@
-{ config, lib, pkgs, ...}:
-
+{ config, pkgs, lib, ... }:
+let
+  cfg = config.systemSettings.networking;
+in
 {
-  environment.systemPackages = with pkgs; [wireshark];
-
-  # VPNS
-  services.mullvad-vpn.enable = true;
-  services.mullvad-vpn.package = pkgs.mullvad-vpn;
-
-  # Tailscale Mesh
-  services.tailscale = {
-    enable = true;
-    # useRoutingFeatures = client;
+  options = {
+    systemSettings.networking = {
+      enable = lib.mkEnableOption "Enable networking";
+    };
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [wireshark];
 
-  programs.wireshark = {
-    enable = true;
-   #usbmon = true;
-   #dumpcap = true;
+    # VPNS
+    services.mullvad-vpn.enable = true;
+    services.mullvad-vpn.package = pkgs.mullvad-vpn;
+
+    # Tailscale Mesh
+    services.tailscale = {
+      enable = true;
+      # useRoutingFeatures = client;
+    };
+
+    # networking.firewall.allowedTCPPorts = [ ... ];
+    # networking.firewall.allowedUDPPorts = [ ... ];
+    # networking.firewall.enable = false;
+
+    programs.wireshark = {
+      enable = true;
+      #usbmon = true;
+      #dumpcap = true;
+    };
   };
-
 }

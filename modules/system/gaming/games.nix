@@ -1,20 +1,31 @@
-{ config, lib, pkgs, ...}:
+{ config, pkgs, lib, ... }:
 
+let
+  cfg = config.systemSettings.games;
+in
 {
-  environment.systemPackages = with pkgs; [
-    wineWow64Packages.stable
-    winetricks
-    gamescope
-    #steam-run
-    #steamtinkerlaunch
-    adwsteamgtk
-    prismlauncher
-    openmw
-  ];
+  options = {
+    systemSettings.games = {
+      enable = lib.mkEnableOption "Enable gaming";
+    };
+  };
 
-  programs.steam = {
-    enable = true;
-    protontricks.enable = true;
-    gamescopeSession.enable = true;
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      wineWow64Packages.stable
+      winetricks
+      gamescope
+      #steam-run
+      #steamtinkerlaunch
+      adwsteamgtk
+      prismlauncher
+      openmw
+    ];
+
+    programs.steam = {
+      enable = true;
+      protontricks.enable = true;
+      gamescopeSession.enable = true;
+    };
   };
 }
