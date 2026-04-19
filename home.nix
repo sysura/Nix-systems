@@ -21,6 +21,10 @@
     ./modules/user/dev/obsidian.nix
   ];
 
+  userSettings.neovim.enable = true;
+  userSettings.obsidian.enable = true;
+  userSettings.zed.enable = true;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "mx";
