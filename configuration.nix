@@ -161,11 +161,14 @@
       anki
       syncthing
       talosctl
+      kubectl
       distrobox
       ollama
       thunar
       signal-desktop
       protonmail-bridge
+      krita
+      jellyfin-tui
    ];
   };
 

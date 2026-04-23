@@ -16,6 +16,18 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
+
+    devShells.${system}.default = pkgs.mkShell {
+      buildInputs = with pkgs; [
+        go
+	gopls
+	go-tools
+	delve
+      ];
+
+      shellHook = '' echo "Dev environment loaded" '';
+    };
+
     nixosConfigurations = {
       ayu = lib.nixosSystem {
         inherit system;

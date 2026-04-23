@@ -9,7 +9,7 @@ let
     in
       map (f: dir + "/${f}") nixFiles;
 
-  dirs = ["hypr" "env" "media" "terminal" "dev" "shell"];
+  dirs = ["hypr" "internet" "env" "media" "terminal" "dev" "shell"];
   autoImports = lib.concatMap (d: importDir (usr + "/${d}")) dirs;
 in
 {
@@ -35,6 +35,10 @@ in
     hyprpaper.enable = true;
     hyprshot.enable = true;
 
+    # internet /
+    qutebrowser.enable = true;
+    librewolf.enable = true;
+
     # media/
     freetube.enable = true;
 
@@ -55,6 +59,7 @@ in
     packages = with pkgs; [
        networkmanagerapplet
        hyprsunset
+       hyprpaper
        pavucontrol
        feh
        mpv
