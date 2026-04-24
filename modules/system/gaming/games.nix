@@ -5,8 +5,14 @@ let
 in
 {
   options = {
-    systemSettings.games = {
-      enable = lib.mkEnableOption "Enable gaming";
+    systemSettings = {
+      users = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+      };
+      games = {
+        enable = lib.mkEnableOption "Enable Gaming";
+      };
     };
   };
 

@@ -1,50 +1,64 @@
 {
-
-  description = "Main flake";
+  description = "Multi System Flake";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sops-nix.url = "github:Mic92/sops-nix";
     stylix.url = "github:danth/stylix";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
-    let 
-      lib = nixpkgs.lib;
+  outputs = inputs@{ self, nixpkgs, ... }:
+    let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
+      lib = nixpkgs.lib;
 
-    devShells.${system}.default = pkgs.mkShell {
-      buildInputs = with pkgs; [
-        go
-	gopls
-	go-tools
-	delve
-      ];
-
-      shellHook = '' echo "Dev environment loaded" '';
-    };
-
-    nixosConfigurations = {
-      ayu = lib.nixosSystem {
+      # Standard pkgs instance
+      pkgs = import nixpkgs {
         inherit system;
-	specialArgs = { inherit inputs; };
-        modules = [ 
-	  ./configuration.nix
-	  inputs.stylix.nixosModules.stylix
-	];
+        config.allowUnfree = true;
       };
-    };
 
-    homeConfigurations = {
-      mx = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-	#specialArgs = { inherit inputs; };
-	modules = [ ./home.nix ];
+      # Automatically find hosts in the ./hosts directory
+      hosts = builtins.filter (x: x != null) (
+        lib.mapAttrsToList (name: value: if (value == "directory") then name else null) (
+          builtins.readDir ./hosts
+        )
+      );
+    in
+    {
+      nixosConfigurations = lib.genAttrs hosts (host: lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          # Set hostname based on folder name
+          { networking.hostName = host; }
+
+          # Machine-specific config
+          (./hosts + "/${host}")
+
+          # Shared modules
+          ./modules/system
+          inputs.stylix.nixosModules.stylix
+
+          # Home Manager core setup
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+          }
+        ];
+      });
+
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [ go gopls go-tools delve ];
+        shellHook = ''echo "Go development environment loaded"'';
       };
     };
-  };
 }
