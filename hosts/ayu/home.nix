@@ -35,7 +35,6 @@
       tmux.enable = true;
       yazi.enable = true;
       };
-    ## EXTRA CONFIG GOES HERE
 
     home = {
         username = "mx";
@@ -51,14 +50,24 @@
           starship
           trayscale
           gcr
-          thunderbird
           ripgrep
-	  brave
+          peazip
+          bitwarden-desktop
+          jellyfin-desktop
+          libreoffice
+          anki
+          distrobox
+          krita
+          jellyfin-tui
+          binsider
+          bluetui
+          wiremix
+          brave
         ];
         sessionVariables = {};
      };
 
-    ### User Services ###
+    #-- User Services --#
     services = {
       gnome-keyring.enable = true;
     };

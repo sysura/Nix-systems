@@ -19,23 +19,23 @@ in
       enable = true;
       package = pkgs.mako;
       settings = {
-        background-color = "${bgCol}";
-        text-color = "${textCol}";
-        border-color = "${borderColor}";
-        progress-color = "over ${progColor}";
+        background-color = lib.mkForce "${bgCol}";
+        text-color = lib.mkForce "${textCol}";
+        border-color = lib.mkForce "${borderColor}";
+        progress-color = lib.mkForce "over ${progColor}";
         border-radius = 8;
         text-alignment = "center";
         margin = 10;
         padding = "12,14";
         width = 300;
         height = 100;
-        font = "monospace 10";
+        font = lib.mkForce "monospace 10";
         max-icon-size = 20;
         default-timeout = 4000;
 
         "urgency=critical" = {
             default-timeout = 0;
-            border-color = "${critBorderColor}";
+            border-color = lib.mkForce "${critBorderColor}";
         };
       };
     };

@@ -45,6 +45,7 @@
           # Shared modules
           ./modules/system
           inputs.stylix.nixosModules.stylix
+          inputs.sops-nix.nixosModules.sops
 
           # Home Manager core setup
           inputs.home-manager.nixosModules.home-manager

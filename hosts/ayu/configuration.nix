@@ -5,10 +5,17 @@
     systemSettings = {
       users = [ "mx" ];
 
-       games.enable = true;
-       i18n.enable = true;
-       networking.enable = true;
-       sddm.enable = true;
+      mime.enable = true;
+
+      games.enable = true;
+      i18n.enable = true;
+      sddm.enable = true;
+
+      firewall.enable = true;
+      mullvad.enable = true;
+      qbit.enable = false;
+      tailscale.enable = true;
+      wireshark.enable = true;
     };
 
     users.users.mx = {
@@ -16,7 +23,22 @@
       extraGroups = [ "wheel" ];
     };
 
-    environment.systemPackages = with pkgs; [];
+    environment.systemPackages = with pkgs; [
+      talosctl
+      kubectl
+      signal-desktop
+      protonmail-bridge
+    ];
+
+    services = {
+      logind = {
+        settings.Login = {
+          HandleLidSwitch = "suspend";
+          HandleLidSwitchExternalPower = "lock";
+          HandleLidSwitchDocked = "ignore";
+        };
+      };
+    };
 
     system.stateVersion = "25.11";
 
