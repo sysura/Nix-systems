@@ -137,6 +137,7 @@
         protonmail-bridge
         krita
         jellyfin-tui
+	binsider
     ];
     };
 
