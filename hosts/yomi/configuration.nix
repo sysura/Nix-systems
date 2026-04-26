@@ -13,6 +13,7 @@
       sddm.enable = true;
 
       flatpak.enable = true;
+      cachy.enable = false;
 
       firewall.enable = true;
       mullvad.enable = true;
