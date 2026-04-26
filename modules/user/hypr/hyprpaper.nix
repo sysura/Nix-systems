@@ -18,7 +18,7 @@
       package = pkgs.hyprpaper;
       settings = {
         wallpaper = {
-          monitor = "${screen}";
+          monitor = "";
           path = "~/Wallpapers/${img}";
           fit_mode = "cover";
         };

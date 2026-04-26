@@ -62,6 +62,11 @@
       };
     };
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    };
+
     services = {
       # Power
       power-profiles-daemon.enable = true;
@@ -92,6 +97,7 @@
 
       gvfs.enable = true;
       udisks2.enable = true;
+      dbus.enable = true;
       ollama.enable = true;
       syncthing.enable = true;
 

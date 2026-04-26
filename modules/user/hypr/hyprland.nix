@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ...}:
+{ config, pkgs, lib, osConfig, ...}:
 
 let
   cfg = config.userSettings.hyprland;
@@ -18,7 +18,16 @@ in
         enable = false;
       };
       settings = {
-        monitor = ",preferred,auto,auto";
+        monitor = if osConfig.networking.hostName == "ayu" then [
+          ",preferred,auto,auto"
+        ] else if osConfig.networking.hostName == "yomi" then [
+          "DP-5, 3840x2160, 0x0, 1.5"
+          "DP-6, 1920x1080, 2560x0, 1"
+          "HDMI-A-2, 1920x1080, 4480x0, 1"
+        ] else [
+          ",preferred,auto,1" # Fallback default
+        ];
+	workspace = if osConfig.networking.hostName == "yomi" then ["workspace= name:1, monitor: DP-6"] else [];
         xwayland = {
           force_zero_scaling = true;
         };
@@ -28,9 +37,12 @@ in
         "$menu" = "wofi --show drun";
 
         exec-once = [
-          "nm-applet &"
+          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
+          "hyprctl dispatch workspace 1 &"
+          "xrandr --output DP-6 --primary &" 
+	  "nm-applet &"
           "hyprpaper &"
-          "waybar & hyprsunset --temperature 5500 & mako"
+          "waybar & hyprsunset --temperature 5000 & mako"
         ];
 
         env = [
