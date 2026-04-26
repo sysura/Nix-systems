@@ -41,28 +41,8 @@
       homeDirectory = "/home/mx";
       stateVersion = "25.11";
       packages = with pkgs; [
-        networkmanagerapplet
-        hyprsunset
-        hyprpaper
-        pavucontrol
-        feh
-        mpv
-        starship
-        trayscale
-        gcr
-        ripgrep
-        peazip
-        bitwarden-desktop
-        jellyfin-desktop
-        libreoffice
-        anki
-        distrobox
-        krita
-        jellyfin-tui
-        binsider
-        wiremix
-        brave
         adwsteamgtk
+        ckb-next
       ];
       sessionVariables = {};
     };
