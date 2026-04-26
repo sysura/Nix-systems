@@ -17,7 +17,6 @@ in
       gamescope
       #steam-run
       #steamtinkerlaunch
-      adwsteamgtk
       prismlauncher
       openmw
     ];

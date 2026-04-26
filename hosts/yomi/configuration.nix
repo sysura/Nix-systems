@@ -6,10 +6,13 @@
       users = [ "mx" ];
 
       mime.enable = true;
+      bluetooth.enable = false;
 
       games.enable = true;
       i18n.enable = true;
       sddm.enable = true;
+
+      flatpak.enable = true;
 
       firewall.enable = true;
       mullvad.enable = true;

@@ -33,7 +33,7 @@
       fastfetch.enable = true;
       kitty.enable = true;
       tmux.enable = true;
-      yazi.enable = true; 
+      yazi.enable = true;
     };
 
     home = {
@@ -60,9 +60,9 @@
         krita
         jellyfin-tui
         binsider
-        bluetui
         wiremix
         brave
+        adwsteamgtk
       ];
       sessionVariables = {};
     };

@@ -36,16 +36,6 @@
       graphics = {
         enable = true;
       };
-
-      bluetooth = {
-        enable = true;
-        powerOnBoot = false;
-        settings = {
-          General = {
-            Experimental = true;
-          };
-        };
-      };
     };
 
     security = {
