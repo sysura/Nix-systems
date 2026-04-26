@@ -14,7 +14,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable = {
+  config = lib.mkIf cfg.enable {
     boot = {
       kernelPackages = lib.mkMerge [
         (lib.mkIf (cfg.variant == null) pkgs.linuxPackages_cachyos)
