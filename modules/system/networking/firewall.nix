@@ -12,7 +12,7 @@ in
 
   config = lib.mkIf cfg.enable {
     networking.firewall.enable = true;
-    #networking.firewall.allowedTCPPorts = [ ... ];
+    networking.firewall.allowedTCPPorts = [ 22 ];
     #networking.firewall.allowedUDPPorts = [ ... ];
   };
 }
