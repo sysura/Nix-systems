@@ -7,25 +7,29 @@
 
       mime.enable = true;
       bluetooth.enable = false;
+      cachy.enable = false;
 
       games.enable = true;
       i18n.enable = true;
       sddm.enable = true;
 
       flatpak.enable = true;
-      cachy.enable = false;
+      firejail.enable = true;
+      virtualization.enable = true;
 
       firewall.enable = true;
       mullvad.enable = true;
-      qbit.enable = true;
+      qbit.enable = false;
       tailscale.enable = true;
       wireshark.enable = false;
     };
 
     users.users.mx = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "libvirtd"];
     };
+
+    users.groups.libvirtd.members = ["mx"];
 
     environment.systemPackages = with pkgs; [];
 
@@ -36,10 +40,10 @@
     hardware = {
       nvidia = {
         modesetting.enable = true;
-	powerManagement.enable = false;
-	powerManagement.finegrained = false;
-	open = false;
-	nvidiaSettings = true;
+        powerManagement.enable = false;
+        powerManagement.finegrained = false;
+        open = false;
+        nvidiaSettings = true;
       };
     };
 

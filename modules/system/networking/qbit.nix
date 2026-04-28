@@ -15,8 +15,8 @@ in
       enable = true;
       package = pkgs.qbittorrent-nox;
       extraArgs = [ "--confirm-legal-notice" ];
-     #user = "qbittorrent";
-     #group = "qbittorrent";
+      user = "qbittorrent";
+      group = "qbittorrent";
     };
   };
 }

@@ -7,13 +7,15 @@
 
       mime.enable = true;
       bluetooth.enable = true;
+      cachy.enable = false;
 
       games.enable = true;
       i18n.enable = true;
       sddm.enable = true;
 
       flatpak.enable = false;
-      cachy.enable = false;
+      firejail.enable = false;
+      virtualization.enable = true;
 
       firewall.enable = true;
       mullvad.enable = true;
@@ -24,8 +26,10 @@
 
     users.users.mx = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "libvirtd"];
     };
+
+    users.groups.libvirtd.members = ["mx"];
 
     environment.systemPackages = with pkgs; [
       talosctl

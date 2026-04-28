@@ -43,6 +43,8 @@
       packages = with pkgs; [
         adwsteamgtk
         ckb-next
+        qbittorrent
+        megacmd
       ];
       sessionVariables = {};
     };
