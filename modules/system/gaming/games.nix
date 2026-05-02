@@ -19,6 +19,7 @@ in
       #steamtinkerlaunch
       prismlauncher
       openmw
+      protonup-ng
     ];
 
     programs.steam = {

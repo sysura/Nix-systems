@@ -23,6 +23,9 @@
       qutebrowser.enable = true;
       librewolf.enable = true;
 
+      # japanese/
+      anki.enable = false;
+
       # media/
       freetube.enable = true;
 
@@ -30,8 +33,11 @@
       bash.enable = true;
 
       # terminal/
+      bat.enable = true;
+      eza.enable = true;
       fastfetch.enable = true;
       kitty.enable = true;
+      lazygit.enable = true;
       tmux.enable = true;
       yazi.enable = true;
     };
@@ -44,9 +50,19 @@
         adwsteamgtk
         ckb-next
         qbittorrent
-        megacmd
       ];
       sessionVariables = {};
+      pointerCursor = {
+        package = pkgs.rose-pine-hyprcursor;
+        name = "rose-pine-hyprcursor";
+        size = 32;
+        gtk.enable = true;
+        x11.enable = true;
+        hyprcursor = {
+          enable = true;
+          size = 32;
+        };
+      };
     };
 
     services = {

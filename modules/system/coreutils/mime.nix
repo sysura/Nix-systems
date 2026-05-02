@@ -3,9 +3,10 @@
 let
   cfg = config.systemSettings.mime;
 
-  textEditor = "nvim.desktop";
-  imgViewer = "feh.desktop";
-  mediaViewer = "mpv.desktop";
+  text = "nvim.desktop";
+  image = "feh.desktop";
+  video = "mpv.desktop";
+  browser = "librewolf.desktop";
 in
 {
   options = {
@@ -18,17 +19,25 @@ in
     xdg.mime = {
       enable = true;
       defaultApplications = {
-        "text/plain" = [ textEditor ];
-        "image/png" = [ imgViewer ];
-        "image/jpeg" = [ imgViewer ];
-        "image/jpg" = [ imgViewer ];
-        "video/webm" = [ mediaViewer ];
-        "video/mp4" = [ mediaViewer ];
-        "video/mpv" = [ mediaViewer ];
-        "audio/ogg" = [ mediaViewer ];
-        "audio/mp3" = [ mediaViewer ];
-        "audio/wav" = [ mediaViewer ];
-        "audio/flac" = [ mediaViewer ];
+        "text/plain" = [ text ];
+
+        "image/png" = [ image ];
+        "image/jpeg" = [ image ];
+        "image/jpg" = [ image ];
+        "image/webp" = [ image];
+
+        "video/webm" = [ video ];
+        "video/mp4" = [ video ];
+        "video/mpv" = [ video ];
+        "audio/ogg" = [ video ];
+        "audio/mp3" = [ video ];
+        "audio/wav" = [ video ];
+        "audio/flac" = [ video ];
+
+        "x-scheme-handler/http" = [ browser ];
+        "x-scheme-handler/https" = [ browser ];
+        "x-scheme-handler/about" = [ browser ];
+        "x-scheme-handler/unknown" = [ browser ];
       };
     };
   };

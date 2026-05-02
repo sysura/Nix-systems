@@ -19,9 +19,12 @@
       hyprpaper.enable = true;
       hyprshot.enable = true;
 
-      # internet /
+      # internet/
       qutebrowser.enable = true;
       librewolf.enable = true;
+
+      # japanese/
+      anki.enable = false;
 
       # media/
       freetube.enable = true;
@@ -30,8 +33,11 @@
       bash.enable = true;
 
       # terminal/
+      bat.enable = true;
+      eza.enable = true;
       fastfetch.enable = true;
       kitty.enable = true;
+      lazygit.enable = true;
       tmux.enable = true;
       yazi.enable = true;
       };
@@ -40,7 +46,12 @@
         username = "mx";
         homeDirectory = "/home/mx";
         stateVersion = "25.11";
-        packages = with pkgs; [];
+        packages = with pkgs; [
+          talosctl
+          kubectl
+          signal-desktop
+          protonmail-bridge
+        ];
         sessionVariables = {};
      };
 

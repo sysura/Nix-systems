@@ -19,7 +19,6 @@
 
       firewall.enable = true;
       mullvad.enable = true;
-      qbit.enable = false;
       tailscale.enable = true;
       wireshark.enable = true;
     };
@@ -31,12 +30,7 @@
 
     users.groups.libvirtd.members = ["mx"];
 
-    environment.systemPackages = with pkgs; [
-      talosctl
-      kubectl
-      signal-desktop
-      protonmail-bridge
-    ];
+    environment.systemPackages = with pkgs; [];
 
     services = {
       logind = {

@@ -39,15 +39,13 @@ in
         exec-once = [
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
           "hyprctl dispatch workspace 1 &"
-          "xrandr --output DP-6 --primary &" 
+          "xrandr --output DP-6 --primary &"
 	  "nm-applet &"
           "hyprpaper &"
           "waybar & hyprsunset --temperature 5000 & mako"
         ];
 
         env = [
-          "XCURSOR_SIZE,24"
-          "HYPRCURSOR_SIZE,24"
           "QT_QPA_PLATFORM,wayland"
           "QT_QPA_PLATFORMTHEME,qt5ct"
           "QT_QPA_PLATFORMTHEME,qt6ct"
@@ -183,9 +181,18 @@ in
             disable_while_typing = false;
             clickfinger_behavior = 1;
           };
+
+          tablet = {
+            output = "HDMI-A-2";
+          };
         };
 
         gesture = "3, horizontal, workspace";
+
+        cursor = {
+          no_hardware_cursors = true; # Nvidia & theme specific
+          enable_hyprcursor = true;
+        };
 
         #device = {
         #  name = "epic-mouse-v1";

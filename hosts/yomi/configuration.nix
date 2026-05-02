@@ -19,7 +19,6 @@
 
       firewall.enable = true;
       mullvad.enable = true;
-      qbit.enable = false;
       tailscale.enable = true;
       wireshark.enable = false;
     };

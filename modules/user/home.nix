@@ -26,6 +26,7 @@
         bluetui
         wiremix
         brave
+        hyprcursor
       ];
     };
   };
