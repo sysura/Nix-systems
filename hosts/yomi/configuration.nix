@@ -9,7 +9,8 @@
       bluetooth.enable = false;
       cachy.enable = false;
 
-      games.enable = true;
+      steam.enable = true;
+      wine.enable = true;
       i18n.enable = true;
       sddm.enable = true;
 

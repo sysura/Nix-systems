@@ -3,6 +3,7 @@
 {
   config = {
     userSettings = {
+      # dev/
       neovim.enable = true;
       obsidian.enable = true;
       zed.enable = true;
@@ -13,13 +14,16 @@
       wlogout.enable = true;
       wofi.enable = true;
 
+      # gaming/
+      prismlauncher.enable = true;
+
       # hypr/
       hyprland.enable = true;
       hyprlock.enable = true;
       hyprpaper.enable = true;
       hyprshot.enable = true;
 
-      # internet /
+      # internet/
       qutebrowser.enable = true;
       librewolf.enable = true;
 
@@ -47,7 +51,6 @@
       homeDirectory = "/home/mx";
       stateVersion = "25.11";
       packages = with pkgs; [
-        adwsteamgtk
         ckb-next
         qbittorrent
       ];
@@ -55,18 +58,14 @@
       pointerCursor = {
         package = pkgs.rose-pine-hyprcursor;
         name = "rose-pine-hyprcursor";
-        size = 32;
+        size = 24;
         gtk.enable = true;
         x11.enable = true;
         hyprcursor = {
           enable = true;
-          size = 32;
+          size = 24;
         };
       };
-    };
-
-    services = {
-      gnome-keyring.enable = true;
     };
 
     programs.home-manager.enable = true;

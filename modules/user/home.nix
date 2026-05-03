@@ -27,6 +27,7 @@
         wiremix
         brave
         hyprcursor
+        openmw
       ];
     };
   };

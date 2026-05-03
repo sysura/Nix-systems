@@ -42,6 +42,7 @@
       rtkit.enable = true;
       pam = {
         services.hyprlock = {};
+        services.greetd.enableGnomeKeyring = true;
       };
     };
 

@@ -3,6 +3,7 @@
 {
   config = {
     userSettings = {
+      # dev/
       neovim.enable = true;
       obsidian.enable = true;
       zed.enable = true;
@@ -12,6 +13,9 @@
       waybar.enable = true;
       wlogout.enable = true;
       wofi.enable = true;
+
+      # gaming/
+      prismlauncher.enable = true;
 
       # hypr/
       hyprland.enable = true;
@@ -54,11 +58,6 @@
         ];
         sessionVariables = {};
      };
-
-    #-- User Services --#
-    services = {
-      gnome-keyring.enable = true;
-    };
 
     programs.home-manager.enable = true;
   };
