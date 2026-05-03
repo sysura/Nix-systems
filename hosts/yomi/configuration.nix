@@ -11,6 +11,7 @@
 
       steam.enable = true;
       wine.enable = true;
+      fcitx5.enable = true;
       i18n.enable = true;
       sddm.enable = true;
 

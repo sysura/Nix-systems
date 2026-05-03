@@ -37,11 +37,12 @@ in
         "$menu" = "wofi --show drun";
 
         exec-once = [
+          "hyprpaper &"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
           "hyprctl dispatch workspace 1 &"
           "xrandr --output DP-6 --primary &"
-	  "nm-applet &"
-          "hyprpaper &"
+          "nm-applet &"
+          "fcitx5 -d &"
           "waybar & hyprsunset --temperature 5000 & mako"
         ];
 
