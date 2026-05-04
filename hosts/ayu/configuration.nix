@@ -22,7 +22,7 @@
       firewall.enable = true;
       mullvad.enable = true;
       tailscale.enable = true;
-      wireshark.enable = true;
+      wireshark.enable = false;
     };
 
     users.users.mx = {
