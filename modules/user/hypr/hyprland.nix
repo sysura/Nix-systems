@@ -66,8 +66,8 @@ in
           gaps_in = 5;
           gaps_out = 20;
           border_size = 2;
-          "col.active_border" = "rgba(b4befeFF)";
-          "col.inactive_border" = "rgba(595959aa)";
+          "col.active_border" = lib.mkForce "rgba(b4befeFF)";
+          "col.inactive_border" = lib.mkForce "rgba(595959aa)";
 
           # Set to true enable resizing windows by clicking and dragging on borders and gaps
           resize_on_border = false;
@@ -84,7 +84,7 @@ in
             enabled = true;
             range = 4;
             render_power = 3;
-            color = "rgba(1a1a1aee)";
+            color = lib.mkForce "rgba(1a1a1aee)";
           };
           blur = {
             enabled = true;

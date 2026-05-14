@@ -20,7 +20,7 @@ in
         italic_font = "auto";
         bold_italic_font = "auto";
         font_size = 11;
-        background_opacity = 0.9;
+        background_opacity = lib.mkForce "0.9";
       };
       themeFile = "Catppuccin-Mocha";
     };

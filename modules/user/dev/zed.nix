@@ -35,8 +35,8 @@ in
         };
         vim_mode = true;
         icon_theme = "Catppuccin Mocha";
-        ui_font_size = 16;
-        buffer_font_size = 15;
+        ui_font_size = lib.mkForce "16";
+        buffer_font_size = lib.mkForce "15";
       };
       extensions = [
         "html" "dockerfile" "php" "sql" "nix"
