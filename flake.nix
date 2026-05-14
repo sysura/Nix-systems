@@ -58,8 +58,18 @@
       });
 
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [ go gopls go-tools delve ];
-        shellHook = ''echo "Go development environment loaded"'';
+        buildInputs = with pkgs; [ 
+	  go 
+	  gopls 
+	  go-tools 
+	  delve 
+
+	  nodejs_20
+	  vue-language-server
+	  typescript
+	  typescript-language-server
+	];
+        shellHook = ''echo "Dev env loaded"'';
       };
     };
 }
