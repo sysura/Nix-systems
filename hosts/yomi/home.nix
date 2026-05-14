@@ -15,7 +15,7 @@
       wofi.enable = true;
 
       # gaming/
-      prismlauncher.enable = true;
+      prismlauncher.enable = false;
 
       # hypr/
       hyprland.enable = true;
@@ -26,9 +26,6 @@
       # internet/
       qutebrowser.enable = true;
       librewolf.enable = true;
-
-      # japanese/
-      anki.enable = false;
 
       # media/
       freetube.enable = true;

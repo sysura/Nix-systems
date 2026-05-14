@@ -37,7 +37,7 @@ in
         allow_markup = true;
         print_command = false;
         layer = "overlay";
-        allow_images = false;
+        allow_images = true;
         prompt = "";
         image_size = 30;
         display_generic = false;
@@ -111,13 +111,40 @@ in
           color: ${text};
         }
 
-        #entry {
-          background-color: ${crust};
+        #img {
+          margin-right: 10px; /* Adds space between the icon and the text */
+          background: none;
         }
 
+        #entry {
+            background-color: ${crust};
+            /* Use flex to gain control over element order */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        /* 1. The Image/Icon */
+        #entry image {
+            -gtk-box-ordinal-group: 0;
+            margin-right: 10px;
+            order: 0;
+        }
+
+        /* 2. The Expand Arrow */
         #entry arrow {
-          border: none;
-          color: ${lavender};
+            border: none;
+            color: ${lavender};
+            margin-right: 5px;
+            order: 1;
+        }
+
+        /* 3. The App Name/Text */
+        #entry #text {
+            margin: 5px;
+            border: none;
+            color: ${text};
+            order: 2;
         }
 
         /* Selected Entry */

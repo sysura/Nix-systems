@@ -27,9 +27,6 @@
       qutebrowser.enable = true;
       librewolf.enable = true;
 
-      # japanese/
-      anki.enable = false;
-
       # media/
       freetube.enable = true;
 

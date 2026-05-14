@@ -47,12 +47,12 @@ in
         ];
 
         env = [
-          "QT_QPA_PLATFORM,wayland"
+          "QT_QPA_PLATFORM,wayland;xcb"
           "QT_QPA_PLATFORMTHEME,qt5ct"
-          "QT_QPA_PLATFORMTHEME,qt6ct"
           "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
           "QT_AUTO_SCREEN_SCALE_FACTOR,1"
           "QT_STYLE_OVERRIDE,kvantum"
+          "GDK_BACKEND,wayland,x11"
         ];
 
         # ecosystem {

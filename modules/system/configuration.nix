@@ -56,6 +56,7 @@
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+      config.common.default = "*";
     };
 
     services = {
@@ -99,6 +100,8 @@
       gnome.gnome-keyring = {
         enable = true;
       };
+
+      tumbler.enable = true;
     };
 
     # Allow unfree packages
@@ -115,7 +118,9 @@
         withUWSM = false;
       };
 
+      # Thunar settings
       thunar.enable = true;
+      xfconf.enable = true;
     };
 
     environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
@@ -132,7 +137,7 @@
       catppuccin-sddm
     ];
 
-    fonts.packages = with pkgs; [
+     fonts.packages = with pkgs; [
       nerd-fonts.caskaydia-cove
       font-awesome
     ];

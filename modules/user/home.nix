@@ -15,10 +15,10 @@
         gcr
         ripgrep
         peazip
+        anki
         bitwarden-desktop
         jellyfin-desktop
         libreoffice
-        anki
         distrobox
         krita
         jellyfin-tui
