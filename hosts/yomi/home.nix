@@ -10,18 +10,15 @@
 
       # env/
       mako.enable = true;
-      waybar.enable = true;
       wlogout.enable = true;
       wofi.enable = true;
 
       # gaming/
       prismlauncher.enable = false;
 
-      # hypr/
+      # WM
       hyprland.enable = true;
-      hyprlock.enable = true;
-      hyprpaper.enable = true;
-      hyprshot.enable = true;
+      niri.enable = false;
 
       # internet/
       qutebrowser.enable = true;
@@ -51,7 +48,7 @@
         ckb-next
         qbittorrent
       ];
-      sessionVariables = {};
+      sessionVariables = { };
       pointerCursor = {
         package = pkgs.rose-pine-hyprcursor;
         name = "rose-pine-hyprcursor";

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   config = {
@@ -28,8 +28,12 @@
         brave
         hyprcursor
         openmw
+        hyprpolkitagent
       ];
     };
+
+    services.hyprpolkitagent.enable = true;
+
     gtk = {
       enable = true;
       iconTheme = {
@@ -39,6 +43,7 @@
           accent = "lavender";
         };
       };
+      gtk4.theme = config.gtk.theme;
     };
   };
 }

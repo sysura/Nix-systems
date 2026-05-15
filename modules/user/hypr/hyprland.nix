@@ -4,6 +4,14 @@ let
   cfg = config.userSettings.hyprland;
 in
 {
+
+  imports = [
+    ./hyprlock.nix
+    ./hyprpaper.nix
+    ./hyprshot.nix
+    ./waybar.nix
+  ];
+
   options = {
     userSettings.hyprland = {
       enable = lib.mkEnableOption "Enable hyprland wm";
@@ -11,9 +19,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    userSettings.hyprlock.enable = true;
+    userSettings.hyprpaper.enable = true;
+    userSettings.hyprshot.enable = true;
+    userSettings.waybar.enable = true;
+
     wayland.windowManager.hyprland = {
       enable = true;
       package = pkgs.hyprland;
+      configType = "hyprlang";
       systemd = {
         enable = false;
       };

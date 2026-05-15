@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let 
+let
   cfg = config.userSettings.librewolf;
 in
 {
@@ -15,5 +15,7 @@ in
       enable = true;
       package = pkgs.librewolf;
     };
+
+    stylix.targets.librewolf.profileNames = [ "default" ];
   };
 }

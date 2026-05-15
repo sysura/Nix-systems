@@ -10,7 +10,6 @@
 
       # env/
       mako.enable = true;
-      waybar.enable = true;
       wlogout.enable = true;
       wofi.enable = true;
 
@@ -19,9 +18,6 @@
 
       # hypr/
       hyprland.enable = true;
-      hyprlock.enable = true;
-      hyprpaper.enable = true;
-      hyprshot.enable = true;
 
       # internet/
       qutebrowser.enable = true;

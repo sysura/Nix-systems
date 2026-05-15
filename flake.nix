@@ -11,9 +11,11 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     stylix.url = "github:danth/stylix";
+    niri.url = "github:sodiboo/niri-flake";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs =
+    inputs@{ self, nixpkgs, ... }:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -32,43 +34,46 @@
       );
     in
     {
-      nixosConfigurations = lib.genAttrs hosts (host: lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs; };
-        modules = [
-          # Set hostname based on folder name
-          { networking.hostName = host; }
+      nixosConfigurations = lib.genAttrs hosts (
+        host:
+        lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            # Set hostname based on folder name
+            { networking.hostName = host; }
 
-          # Machine-specific config
-          (./hosts + "/${host}")
+            # Machine-specific config
+            (./hosts + "/${host}")
 
-          # Shared modules
-          ./modules/system
-          inputs.stylix.nixosModules.stylix
-          inputs.sops-nix.nixosModules.sops
+            # Shared modules
+            ./modules/system
+            inputs.stylix.nixosModules.stylix
+            inputs.sops-nix.nixosModules.sops
 
-          # Home Manager core setup
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-          }
-        ];
-      });
+            # Home Manager core setup
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
+          ];
+        }
+      );
 
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [ 
-	  go 
-	  gopls 
-	  go-tools 
-	  delve 
+        buildInputs = with pkgs; [
+          go
+          gopls
+          go-tools
+          delve
 
-	  nodejs_20
-	  vue-language-server
-	  typescript
-	  typescript-language-server
-	];
+          nodejs_20
+          vue-language-server
+          typescript
+          typescript-language-server
+        ];
         shellHook = ''echo "Dev env loaded"'';
       };
     };

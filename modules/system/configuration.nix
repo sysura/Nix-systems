@@ -1,5 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
+let
+  WM = "hyprland";
+in
 {
   config = {
     boot = {
@@ -21,15 +29,15 @@
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     };
 
-    #sops = {
-    #  defaultSopsFile = ../../secrets/secrets.yaml;
-    #  defaultSopsFormat = "yaml";
-    #  age.keyFile = "~/.config/sops/age/keys.txt";
-    #  secrets = {
-    #    example-key = { };
-    #    "myservice/my_subdir/my_secret" = { };
-    #  };
-    #};
+    sops = {
+      defaultSopsFile = ../../secrets/secrets.yaml;
+      defaultSopsFormat = "yaml";
+      age.keyFile = "~/.config/sops/age/keys.txt";
+      #secrets = {
+      #  example-key = { };
+      #  "myservice/my_subdir/my_secret" = { };
+      #};
+    };
 
     hardware = {
       # Base Graphics
@@ -41,7 +49,7 @@
     security = {
       rtkit.enable = true;
       pam = {
-        services.hyprlock = {};
+        services.hyprlock = { };
         services.greetd.enableGnomeKeyring = true;
       };
     };
@@ -66,7 +74,7 @@
 
       # DM
       displayManager = {
-        defaultSession = "hyprland";
+        defaultSession = "${WM}";
         sddm = {
           enable = true;
           wayland.enable = true;
@@ -80,7 +88,7 @@
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
-       #jack.enable = true;
+        #jack.enable = true;
       };
       pulseaudio.enable = false;
 
@@ -101,7 +109,7 @@
         enable = true;
       };
 
-      tumbler.enable = true;
+      dbus.packages = [ pkgs.gcr ];
     };
 
     # Allow unfree packages
@@ -113,17 +121,26 @@
         enableSSHSupport = true;
       };
 
+      # WMs
       hyprland = {
         enable = true;
         withUWSM = false;
       };
 
+      niri = {
+        enable = false;
+      };
+
       # Thunar settings
       thunar.enable = true;
       xfconf.enable = true;
+      tumbler.enable = true;
     };
 
-    environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
+    environment.pathsToLink = [
+      "/share/xdg-desktop-portal"
+      "/share/applications"
+    ];
 
     environment.systemPackages = with pkgs; [
       wget
@@ -135,9 +152,11 @@
       sops
       vim
       catppuccin-sddm
+      nil
+      nixd
     ];
 
-     fonts.packages = with pkgs; [
+    fonts.packages = with pkgs; [
       nerd-fonts.caskaydia-cove
       font-awesome
     ];

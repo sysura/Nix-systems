@@ -27,15 +27,18 @@
 
     users.users.mx = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd"];
+      extraGroups = [
+        "wheel"
+        "libvirtd"
+      ];
     };
 
-    users.groups.libvirtd.members = ["mx"];
+    users.groups.libvirtd.members = [ "mx" ];
 
-    environment.systemPackages = with pkgs; [];
+    environment.systemPackages = with pkgs; [ ];
 
     services = {
-      xserver.videoDrivers = ["nvidia"];
+      xserver.videoDrivers = [ "nvidia" ];
     };
 
     hardware = {
@@ -68,6 +71,9 @@
 
     system.stateVersion = "25.11";
 
-    nix.settings.experimental-features = ["nix-command" "flakes"];
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 }
