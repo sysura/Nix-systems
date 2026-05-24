@@ -25,6 +25,7 @@
       librewolf.enable = true;
 
       # media/
+      calibre.enable = true;
       freetube.enable = true;
 
       # shell/

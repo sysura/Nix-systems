@@ -16,14 +16,16 @@
       # gaming/
       prismlauncher.enable = true;
 
-      # hypr/
+      # WM
       hyprland.enable = true;
+      niri.enable = false;
 
       # internet/
       qutebrowser.enable = true;
       librewolf.enable = true;
 
       # media/
+      calibre.enable = true;
       freetube.enable = true;
 
       # shell/
@@ -37,20 +39,20 @@
       lazygit.enable = true;
       tmux.enable = true;
       yazi.enable = true;
-      };
+    };
 
     home = {
-        username = "mx";
-        homeDirectory = "/home/mx";
-        stateVersion = "25.11";
-        packages = with pkgs; [
-          talosctl
-          kubectl
-          signal-desktop
-          protonmail-bridge
-        ];
-        sessionVariables = {};
-     };
+      username = "mx";
+      homeDirectory = "/home/mx";
+      stateVersion = "25.11";
+      packages = with pkgs; [
+        talosctl
+        kubectl
+        signal-desktop
+        protonmail-bridge
+      ];
+      sessionVariables = { };
+    };
 
     programs.home-manager.enable = true;
   };

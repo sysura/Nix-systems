@@ -1,4 +1,10 @@
-{ config, pkgs, lib, osConfig, ...}:
+{
+  config,
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 
 let
   cfg = config.userSettings.hyprland;
@@ -32,16 +38,23 @@ in
         enable = false;
       };
       settings = {
-        monitor = if osConfig.networking.hostName == "ayu" then [
-          ",preferred,auto,auto"
-        ] else if osConfig.networking.hostName == "yomi" then [
-          "DP-5, 3840x2160, 0x0, 1.5"
-          "DP-6, 1920x1080, 2560x0, 1"
-          "HDMI-A-2, 1920x1080, 4480x0, 1"
-        ] else [
-          ",preferred,auto,1" # Fallback default
-        ];
-	workspace = if osConfig.networking.hostName == "yomi" then ["workspace= name:1, monitor: DP-6"] else [];
+        monitor =
+          if osConfig.networking.hostName == "ayu" then
+            [
+              ",preferred,auto,auto"
+            ]
+          else if osConfig.networking.hostName == "yomi" then
+            [
+              "DP-5, 3840x2160, 0x0, 1.5"
+              "DP-6, 1920x1080, 2560x0, 1"
+              "HDMI-A-2, 1920x1080, 4480x0, 1"
+            ]
+          else
+            [
+              ",preferred,auto,1" # Fallback default
+            ];
+        workspace =
+          if osConfig.networking.hostName == "yomi" then [ "workspace= name:1, monitor: DP-6" ] else [ ];
         xwayland = {
           force_zero_scaling = true;
         };
@@ -168,7 +181,7 @@ in
         # }
 
         dwindle = {
-          pseudotile = true; # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+          #pseudotile = true; # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
           preserve_split = true; # You probably want this
         };
 
@@ -224,7 +237,7 @@ in
           "$mainMod, E, exec, $fileManager"
           "$mainMod, V, togglefloating,"
           "$mainMod, R, exec, $menu"
-          "$mainMod, G, togglesplit," # dwindle
+          #"$mainMod, G, togglesplit," # dwindle
 
           # Move focus with mainMod + arrow keys
           "$mainMod, H, movefocus, l"

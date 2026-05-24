@@ -110,6 +110,7 @@ in
       };
 
       dbus.packages = [ pkgs.gcr ];
+      tumbler.enable = true;
     };
 
     # Allow unfree packages
@@ -134,7 +135,6 @@ in
       # Thunar settings
       thunar.enable = true;
       xfconf.enable = true;
-      tumbler.enable = true;
     };
 
     environment.pathsToLink = [
