@@ -27,6 +27,7 @@ in
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      targets.kmscon.enable = false;
     };
 
     sops = {
@@ -38,6 +39,10 @@ in
       #  "myservice/my_subdir/my_secret" = { };
       #};
     };
+
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-39.8.10"
+    ];
 
     hardware = {
       # Base Graphics
