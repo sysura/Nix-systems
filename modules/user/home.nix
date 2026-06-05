@@ -29,6 +29,9 @@
         hyprcursor
         openmw
         hyprpolkitagent
+        kdePackages.kleopatra
+        mullvad-browser
+        exiftool
       ];
     };
 
