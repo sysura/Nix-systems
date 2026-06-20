@@ -22,7 +22,7 @@
 
       # internet/
       qutebrowser.enable = true;
-      librewolf.enable = true;
+      librewolf.enable = false;
 
       # media/
       calibre.enable = true;
@@ -48,6 +48,7 @@
       packages = with pkgs; [
         ckb-next
         qbittorrent
+        jellyfin-desktop
       ];
       sessionVariables = { };
       pointerCursor = {

@@ -15,7 +15,7 @@
       i18n.enable = true;
       sddm.enable = true;
 
-      flatpak.enable = false;
+      flatpak.enable = true;
       firejail.enable = false;
       virtualization.enable = true;
 
@@ -27,12 +27,15 @@
 
     users.users.mx = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd"];
+      extraGroups = [
+        "wheel"
+        "libvirtd"
+      ];
     };
 
-    users.groups.libvirtd.members = ["mx"];
+    users.groups.libvirtd.members = [ "mx" ];
 
-    environment.systemPackages = with pkgs; [];
+    environment.systemPackages = with pkgs; [ ];
 
     services = {
       logind = {
@@ -46,6 +49,9 @@
 
     system.stateVersion = "25.11";
 
-    nix.settings.experimental-features = ["nix-command" "flakes"];
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 }

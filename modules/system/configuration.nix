@@ -16,6 +16,16 @@ in
         efi.canTouchEfiVariables = true;
       };
       kernelPackages = pkgs.linuxPackages_latest;
+      kernelParams =
+        [ ]
+        ++ (
+          if config.networking.hostName == "ayu" then
+            [
+              "amdgpu.dcdebugmask=0x10"
+            ]
+          else
+            [ ]
+        );
     };
 
     networking = {
@@ -40,9 +50,9 @@ in
       #};
     };
 
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10"
-    ];
+    nixpkgs = {
+      overlays = [ ];
+    };
 
     hardware = {
       # Base Graphics
@@ -146,6 +156,15 @@ in
       "/share/xdg-desktop-portal"
       "/share/applications"
     ];
+
+    environment.sessionVariables =
+      if config.networking.hostName == "ayu" then
+        {
+          VDPAU_DRIVER = "radeonsi";
+          LIBVA_DRIVER_NAME = "radeonsi";
+        }
+      else
+        { };
 
     environment.systemPackages = with pkgs; [
       wget

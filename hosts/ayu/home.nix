@@ -22,7 +22,7 @@
 
       # internet/
       qutebrowser.enable = true;
-      librewolf.enable = true;
+      librewolf.enable = false;
 
       # media/
       calibre.enable = true;

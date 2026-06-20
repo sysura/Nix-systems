@@ -16,8 +16,6 @@
         ripgrep
         peazip
         anki
-        bitwarden-desktop
-        jellyfin-desktop
         libreoffice
         distrobox
         krita
