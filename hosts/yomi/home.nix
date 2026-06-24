@@ -23,6 +23,7 @@
       # internet/
       qutebrowser.enable = true;
       librewolf.enable = false;
+      thunderbird.enable = false;
 
       # media/
       calibre.enable = true;
