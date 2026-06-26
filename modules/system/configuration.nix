@@ -54,6 +54,12 @@ in
       overlays = [ ];
     };
 
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+
     hardware = {
       # Base Graphics
       graphics = {
